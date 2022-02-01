@@ -1,3 +1,5 @@
+#[derive(Eq, PartialEq)]
+#[derive(Clone, Copy)]
 #[derive(Debug)]
 pub enum TokenType {
     String,

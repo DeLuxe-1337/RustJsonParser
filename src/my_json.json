@@ -1,5 +1,5 @@
 {
-    "test": "hell",
-    "test2": 100,
-    "bool": false
+    "test": {
+        "ball": false
+    }
 }
