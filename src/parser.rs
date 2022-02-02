@@ -75,7 +75,7 @@ impl parser_t {
 
     fn block(&mut self) -> Node {
         if self.match_tok(TokenType::BlockStart) {
-            println!("Block");
+            //println!("Block");
             let mut nodes = Vec::new();
 
             while !self.check(TokenType::BlockEnd) && !self.is_end() {
@@ -85,7 +85,7 @@ impl parser_t {
             self.consume(TokenType::BlockEnd, "Expected '}'");
 
             if self.peek().tok_type == TokenType::Comma {
-                println!("Comma consumed");
+                //println!("Comma consumed");
                 self.consume(TokenType::Comma, "Expected ',' if you want more children");
             }
 
@@ -99,7 +99,7 @@ impl parser_t {
 
     fn assignment(&mut self) -> Node {
         if self.check(TokenType::String) && self.peek_c(1).tok_type == TokenType::Colon {
-            println!("Assignment");
+            //println!("Assignment");
             let name = self.consume(TokenType::String, "Expected string").clone();
             self.advance();
             let init = self.block();
@@ -113,7 +113,7 @@ impl parser_t {
     fn values(&mut self) -> Node {
         let array = [TokenType::String, TokenType::Number, TokenType::False, TokenType::True, TokenType::Null];
         if self.match_abund(array.to_vec()) {
-            println!("Value");
+            //println!("Value");
 
             let previous = self.previous().value.clone();
 
@@ -124,7 +124,7 @@ impl parser_t {
             return Node::ValueNode(previous);
         }
 
-        println!("{}", self.tokens[self.current].value);
+        //println!("{}", self.tokens[self.current].value);
         panic!("End of parser reached");
     } 
 

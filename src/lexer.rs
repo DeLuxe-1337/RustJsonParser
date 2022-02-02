@@ -67,7 +67,7 @@ impl lexer_t {
         }
 
         if self.is_end() {
-            println!("Unterminated string");
+            //println!("Unterminated string");
             return;
         }
 

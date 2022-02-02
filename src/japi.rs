@@ -12,14 +12,14 @@ impl japi_t {
         lexer.scan_tokens();
     
         /*for token in lexer.tokens.clone() {
-            println!("Token: {:?}, {1}, {2}", token.tok_type, token.value, token.line);
+            //println!("Token: {:?}, {1}, {2}", token.tok_type, token.value, token.line);
         }*/
     
         let mut parser = parser::parser_t::new(lexer.tokens);
         parser.parse();
     
         /*for node in parser.nodes.clone() {
-            println!("{:?}", node);
+            //println!("{:?}", node);
         }*/
 
         return japi_t {
