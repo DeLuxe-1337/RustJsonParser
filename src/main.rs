@@ -28,6 +28,9 @@ fn main() {
     }
 
     let mut api = japi::japi_t::new(parser.nodes.clone());
+    let res = api.index("test>deez>nested");
+
+    println!("result: {:?}", res);
 
     println!("It took {} ms to run!", now.elapsed().as_millis());
 

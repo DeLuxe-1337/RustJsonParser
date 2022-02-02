@@ -74,8 +74,8 @@ impl lexer_t {
         self.advance();
 
         let value = self.input.substring(
-            (self.start + 1) as usize,
-            ((self.current - 1) - (self.start - 1)) as usize,
+            (self.start + 2) as usize,
+            ((self.current - 1) - (self.start + 1)) as usize,
         );
 
         self.add_token(TokenType::String, value);

@@ -1,8 +1,8 @@
 use super::token::Token;
 use super::token_type::TokenType;
-use super::node::Node;
-#[derive(std::clone::Clone)]
+use super::node::{Node};
 
+#[derive(std::clone::Clone)]
 pub struct parser_t {
     pub tokens: Vec<Token>,
     pub current: usize,
@@ -88,11 +88,9 @@ impl parser_t {
                 self.consume(TokenType::Comma, "Expected ',' if you want more children");
             }
 
-            let body: Option<Box<Vec<Node>>> = Option::from(Box::new(nodes));
+            let body = Box::new(nodes);
 
-            return Node::BlockNode {
-                statements: body,
-            };
+            return Node::BlockNode(body);
         }
         
         return self.assignment();
@@ -105,10 +103,7 @@ impl parser_t {
             self.advance();
             let init = self.block();
 
-            return Node::AssignmentNode {
-                name: name.value,
-                value: Option::from(Box::new(init)),
-            };
+            return Node::AssignmentNode(name.value,  Box::new(init));
         }
         
         return self.values();
@@ -118,9 +113,14 @@ impl parser_t {
         let array = [TokenType::String, TokenType::Number, TokenType::False, TokenType::True, TokenType::Null];
         if self.match_abund(array.to_vec()) {
             println!("Value");
-            return Node::ValueNode {
-                value: self.previous().value.clone(),
-            };
+
+            let previous = self.previous().value.clone();
+
+            if self.peek().tok_type != TokenType::BlockEnd {
+                self.consume(TokenType::Comma, "Expected ',', if you want more children");
+            }
+
+            return Node::ValueNode(previous);
         }
 
         println!("{}", self.tokens[self.current].value);

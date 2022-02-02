@@ -1,5 +1,8 @@
 {
     "test": {
-        "ball": false
+        "ball": false,
+        "deez": {
+            "nested": true
+        }
     }
 }
