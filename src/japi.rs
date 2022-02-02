@@ -1,6 +1,7 @@
 use super::node::Node;
 use super::lexer;
 use super::parser;
+use super::node::ObjectType;
 
 pub struct japi_t {
     pub nodes: Vec<Node>,
@@ -50,15 +51,22 @@ impl japi_t {
 
         return Node::Null;
     }
-
-    pub fn index(&self, index: &str) -> Node {
+    
+    pub fn index(&self, index: &str) -> ObjectType {
         let go = index.split('>').collect::<Vec<&str>>();
         let mut current: Node = self.nodes[0].clone();
-
+    
         for select in go {
             current = self.search_node(&current, select);
         }
-
-        return current;
+    
+        match current {
+            Node::ValueNode(val, obj) => {
+                return obj;
+            }
+            _ => {
+                return ObjectType::Null;
+            }
+        }
     }
 }

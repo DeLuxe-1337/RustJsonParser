@@ -124,10 +124,10 @@ impl parser_t {
             let mut ot: ObjectType = ObjectType::Null;
 
             match previous.tok_type {
-                TokenType::String => ot = ObjectType::String,
-                TokenType::Number => ot = ObjectType::Number,
-                TokenType::True => ot = ObjectType::Bool,
-                TokenType::False => ot = ObjectType::Bool,
+                TokenType::String => ot = ObjectType::String(previous.value.clone()),
+                TokenType::Number => ot = ObjectType::Number(previous.value.parse::<i32>().unwrap()),
+                TokenType::True => ot = ObjectType::Bool(true),
+                TokenType::False => ot = ObjectType::Bool(false),
                 TokenType::Null => ot = ObjectType::Null,
                 _ => panic!("Unknown token type"),
             }
