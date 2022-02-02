@@ -1,13 +1,29 @@
 use super::node::Node;
+use super::lexer;
+use super::parser;
 
 pub struct japi_t {
     pub nodes: Vec<Node>,
 }
 
 impl japi_t {
-    pub fn new(existing: Vec<Node>) -> japi_t {
+    pub fn new(source: String) -> japi_t {
+        let mut lexer = lexer::lexer_t::new(source.as_str());
+        lexer.scan_tokens();
+    
+        /*for token in lexer.tokens.clone() {
+            println!("Token: {:?}, {1}, {2}", token.tok_type, token.value, token.line);
+        }*/
+    
+        let mut parser = parser::parser_t::new(lexer.tokens);
+        parser.parse();
+    
+        /*for node in parser.nodes.clone() {
+            println!("{:?}", node);
+        }*/
+
         return japi_t {
-            nodes: existing,
+            nodes: parser.nodes.clone(),
         };
     }
 
