@@ -4,6 +4,7 @@ mod node;
 
 mod lexer;
 mod parser;
+mod japi;
 
 use std::time::{Duration, Instant};
 
@@ -22,9 +23,11 @@ fn main() {
     let mut parser = parser::parser_t::new(lexer.tokens);
     parser.parse();
 
-    for node in parser.nodes {
+    for node in parser.nodes.clone() {
         println!("{:?}", node);
     }
+
+    let mut api = japi::japi_t::new(parser.nodes.clone());
 
     println!("It took {} ms to run!", now.elapsed().as_millis());
 
