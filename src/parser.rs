@@ -1,6 +1,6 @@
 use super::token::Token;
 use super::token_type::TokenType;
-use super::node::{Node};
+use super::node::{Node, ObjectType};
 
 #[derive(std::clone::Clone)]
 pub struct parser_t {
@@ -115,13 +115,24 @@ impl parser_t {
         if self.match_abund(array.to_vec()) {
             //println!("Value");
 
-            let previous = self.previous().value.clone();
+            let previous = self.previous().clone();
 
             if self.peek().tok_type != TokenType::BlockEnd {
                 self.consume(TokenType::Comma, "Expected ',', if you want more children");
             }
 
-            return Node::ValueNode(previous);
+            let mut ot: ObjectType = ObjectType::Null;
+
+            match previous.tok_type {
+                TokenType::String => ot = ObjectType::String,
+                TokenType::Number => ot = ObjectType::Number,
+                TokenType::True => ot = ObjectType::Bool,
+                TokenType::False => ot = ObjectType::Bool,
+                TokenType::Null => ot = ObjectType::Null,
+                _ => panic!("Unknown token type"),
+            }
+
+            return Node::ValueNode(previous.value, ot);
         }
 
         //println!("{}", self.tokens[self.current].value);
