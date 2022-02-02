@@ -14,7 +14,13 @@ fn main() {
     let source = std::fs::read_to_string("D:\\Rust\\JsonParser\\src\\my_json.json").expect("Expected file");
 
     let mut api = japi::japi_t::new(source);
-    let res = api.index("help>me space>nested");
+    
+    //println!("Type the path you want to visit");
+    //let mut input = String::new();
+    //std::io::stdin().read_line(&mut input);
+
+    //let res = api.index(&input);
+    let res = api.index("data>id");
 
     println!("result: {:?}", res);
 

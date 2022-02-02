@@ -1,7 +1,5 @@
 {
-    "help": {
-        "me space": {
-            "nested": "YES IT IS TRUE"
-        }
+    "data": {
+        "id": 0
     }
 }
