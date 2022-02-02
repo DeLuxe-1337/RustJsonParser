@@ -28,7 +28,7 @@ fn main() {
     }
 
     let mut api = japi::japi_t::new(parser.nodes.clone());
-    let res = api.index("test>deez>nested");
+    let res = api.index("help>me space>nested");
 
     println!("result: {:?}", res);
 

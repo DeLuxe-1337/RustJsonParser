@@ -84,7 +84,8 @@ impl parser_t {
 
             self.consume(TokenType::BlockEnd, "Expected '}'");
 
-            if self.peek().tok_type == TokenType::Comma && (self.match_tok(TokenType::BlockStart) || self.match_tok(TokenType::String)) {
+            if self.peek().tok_type == TokenType::Comma {
+                println!("Comma consumed");
                 self.consume(TokenType::Comma, "Expected ',' if you want more children");
             }
 
