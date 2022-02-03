@@ -15,7 +15,7 @@ fn main() {
 
     let source = std::fs::read_to_string("D:\\Rust\\JsonParser\\src\\my_json.json").expect("Expected file");
 
-    let mut api = japi::japi_t::new(source);
+    let api = japi::japi_t::new(source);
 
     //println!("Type the path you want to visit");
     //let mut input = String::new();
